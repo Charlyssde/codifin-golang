@@ -34,5 +34,16 @@ func startServices(db *gorm.DB, routes *gin.Engine) {
 	productsRepository := data.NewProductImpl(db)
 	productsService := services.NewProductServiceImpl(productsRepository)
 	productsController := controllers.NewProductsController(productsService)
+
+	usersRepository := data.NewUserRepositoryImpl(db)
+	usersService := services.NewUserServiceImpl(usersRepository)
+	usersControllers := controllers.NewUsersController(usersService)
+
+	shopCartRepository := data.NewShopCartRepositoryImpl(db)
+	shopCartService := services.NewShopCartServiceImpl(shopCartRepository)
+	shopCartControllers := controllers.NewShopCartController(shopCartService)
+
+	routes2.ShopCartRoutes(shopCartControllers, routes)
+	routes2.UserRoutes(usersControllers, routes)
 	routes2.ProductRoutes(productsController, routes)
 }

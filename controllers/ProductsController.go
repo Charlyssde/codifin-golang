@@ -23,12 +23,15 @@ func (controller *ProductsController) Create(ctx *gin.Context) {
 	err := ctx.ShouldBindJSON(&product)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, product)
+	} else {
+		res, err := controller.service.Create(product)
+		if err != nil {
+			ctx.JSON(http.StatusBadRequest, err)
+		} else {
+			ctx.JSON(http.StatusOK, res)
+		}
 	}
-	res, err := controller.service.Create(product)
-	if err != nil {
-		ctx.JSON(http.StatusBadRequest, err)
-	}
-	ctx.JSON(http.StatusOK, res)
+
 }
 
 func (controller *ProductsController) Update(ctx *gin.Context) {

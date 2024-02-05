@@ -15,6 +15,16 @@ func NewShopCartServiceImpl(repository data.ShopCartRepository) ShopCartService 
 	}
 }
 
+func (s ShopCartServiceImpl) AddProduct(id int, productId int) (models.ShopCart, error) {
+	res, err := s.repository.AddProduct(id, productId)
+	return res, err
+}
+
+func (s ShopCartServiceImpl) RemoveProduct(id int, productId int) (models.ShopCart, error) {
+	res, err := s.repository.RemoveProduct(id, productId)
+	return res, err
+}
+
 func (s ShopCartServiceImpl) Create(cart models.ShopCart) (models.ShopCart, error) {
 	res, err := s.repository.Create(cart)
 	return res, err
